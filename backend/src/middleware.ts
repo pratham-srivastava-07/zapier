@@ -1,21 +1,18 @@
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "./config";
-import jwt, { JwtPayload } from "jsonwebtoken"
 
-export default function authMiddleware(req: any, res: any, next: any) {
-    const authHeaders = req.headers.authorization
-
-    if(!authHeaders || !authHeaders.startsWith("bearer")) {
-        res.status(403).json({message: "Invalid Headers"})
-    }
-
-    const token = authHeaders.split(' ')[1];
-
-    try{
-        const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload
-        req.userId = decoded.userId;
-
+export default function authMiddleware (req: Request, res: Response, next: NextFunction) {
+    const token = req.headers.authorization as unknown as string;
+    
+    try {
+        const payload = jwt.verify(token, JWT_SECRET);
+        // @ts-ignore
+        req.id = payload.id
         next();
-    } catch(err) {
-        res.status(403).json({error: err})
+    } catch(e) {
+        return res.status(403).json({
+            message: "You are not logged in"
+        })
     }
 }
