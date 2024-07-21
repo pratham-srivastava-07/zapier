@@ -1,6 +1,6 @@
 import express from "express"
 import authMiddleware from "../middleware";
-import zod, { any } from "zod"
+import zod, { any, ZodParsedType } from "zod"
 import { prismaClient } from "../db";
 // import authMiddleware from "../middleware";
 
@@ -22,6 +22,7 @@ zapRouter.post("/", authMiddleware, async (req, res) => {
     const parsedData = zapCreateBody.safeParse(body);
     
     if (!parsedData.success) {
+        console.log(parsedData.error)
         return res.status(411).json({
             message: "Incorrect inputs"
         });
@@ -65,14 +66,53 @@ zapRouter.post("/", authMiddleware, async (req, res) => {
     })
 })
 
-zapRouter.get("/", authMiddleware, (req, res) => {
+zapRouter.get("/", authMiddleware, async(req, res) => {
+    //@ts-ignore
+    const id = req.id
+    const zaps = await prismaClient.zap.findMany({
+        where: {
+            userId: id
+        },
+        include: {
+            actions: {
+                include: {
+                    type: true
+                }
+            },
+            trigger: {
+                include: {
+                    type: true
+                }
+            }
+        }
+    })
     console.log("Signin route");
-    
+    return res.json({zaps})
 })
 
-zapRouter.get("/:zap", authMiddleware, (req, res) => {
-    console.log(
-        "zapId/zapNumber route"
-    );
+zapRouter.get("/:zap", authMiddleware, async(req, res) => {
+    //@ts-ignore
+    const id = req.id
+    const zapId =  req.params.id
+    const zaps = await prismaClient.zap.findFirst({
+        where: {
+            id: zapId,    // this will chk for specific zap with id and the specific user associated with it
+            userId: id
+        },
+        include: {
+            actions: {
+                include: {
+                    type: true
+                }
+            },
+            trigger: {
+                include: {
+                    type: true
+                }
+            }
+        }
+    })
+    console.log("Signin route");
+    return res.json({zaps})
     
 })
