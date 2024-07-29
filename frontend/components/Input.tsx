@@ -3,7 +3,7 @@
 interface InputInterface {
     label: string,
     placeholder: string,
-    onChange: () => void
+    onChange: (e: any) => void
     type?:  "text" | "password" | "email"
 }
 
