@@ -6,9 +6,10 @@ import HeroVideo from "./components/HeroVideo";
 export default function Home() {
   return (
    <div>
-    <AppBar/>
     <Hero />
+    <div className="pt-10">
     <HeroVideo/>
+    </div>
    </div>
   );
 }
