@@ -3,10 +3,12 @@
 import { usePathname, useRouter } from "next/navigation";
 import LinkButton from "./buttons/LinkButton";
 import NormalButton from "./buttons/NormalButton";
+import useAuth from "@/providers/AuthProvider";
 
 export default function AppBar() {
     const router = useRouter()
     const path = usePathname()
+    const {isAuthenticated} = useAuth();
     return <div className="flex border-b justify-between p-4">
         <div className="flex justify-center flex-col font-bold text-2xl ">
             Zapier
