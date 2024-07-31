@@ -10,9 +10,9 @@ export const userRouter = express.Router()
 
 
 const signUpBody = zod.object({
-    email: zod.string().email().min(5),
-    password: zod.string().min(6),
-    name: zod.string().min(3)
+    username: zod.string().email(),
+    password: zod.string(),
+    name: zod.string()
 })
 
 userRouter.post("/signup", async (req, res) => {
@@ -26,7 +26,7 @@ userRouter.post("/signup", async (req, res) => {
 
     const existingUser = await prismaClient.user.findFirst({
         where: {
-            email: parsedData.data.email
+            email: parsedData.data.username
         }
     })
     if(existingUser) {
@@ -35,7 +35,7 @@ userRouter.post("/signup", async (req, res) => {
 
     const newUser = await prismaClient.user.create({
         data: {
-            email: parsedData.data.email,
+            email: parsedData.data.username,
             password: parsedData.data.password,
             name: parsedData.data.name
         }

@@ -42,8 +42,13 @@ export default function Signup() {
                 <NormalButton size="big" onClick={async()=> {
                   const res = await axios.post("http://localhost:3000/api/v1/user/signup", {
                     username: email,
-                    password: password,
-                    name:  name
+                    password,
+                    name
+                  },
+                  {
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
                   })
                   router.push("/login");
                 }}> Get Started Free</NormalButton>

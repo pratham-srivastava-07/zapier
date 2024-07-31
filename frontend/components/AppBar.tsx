@@ -1,11 +1,12 @@
 'use client'
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import LinkButton from "./buttons/LinkButton";
 import NormalButton from "./buttons/NormalButton";
 
 export default function AppBar() {
     const router = useRouter()
+    const path = usePathname()
     return <div className="flex border-b justify-between p-4">
         <div className="flex justify-center flex-col font-bold text-2xl ">
             Zapier
@@ -14,10 +15,15 @@ export default function AppBar() {
             <div className="">
               <LinkButton onClick={()=> {}}>Contact Sales</LinkButton>
             </div>
-            <div className="">
+            {path !== '/dashboard' && (
+             <>
+              <div className="">
               <LinkButton onClick={()=> router.push("/login")}>Login</LinkButton>
             </div>
             <NormalButton onClick={() => router.push("/signup")}>Sign up</NormalButton>
+             </>
+            )
+            }
         </div>
     </div>
 }
