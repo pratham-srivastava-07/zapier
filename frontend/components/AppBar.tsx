@@ -1,5 +1,4 @@
 'use client'
-
 import { usePathname, useRouter } from "next/navigation";
 import LinkButton from "./buttons/LinkButton";
 import NormalButton from "./buttons/NormalButton";
@@ -17,7 +16,7 @@ export default function AppBar() {
             <div className="">
               <LinkButton onClick={()=> {}}>Contact Sales</LinkButton>
             </div>
-            {path !== '/dashboard' && (
+            {!isAuthenticated && path !== '/dashboard' && (
              <>
               <div className="">
               <LinkButton onClick={()=> router.push("/login")}>Login</LinkButton>
@@ -25,6 +24,15 @@ export default function AppBar() {
             <NormalButton onClick={() => router.push("/signup")}>Sign up</NormalButton>
              </>
             )
+            }
+            {
+                isAuthenticated && 
+                <>
+                <div>
+                    <LinkButton onClick={()=> {}}>Logout</LinkButton>
+                </div>
+                
+                </>
             }
         </div>
     </div>
