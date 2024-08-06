@@ -35,7 +35,11 @@ function useZaps() {
     const [zaps, setZaps] = useState<Zap[]>([]);
 
     useEffect(()=> {
-        axios.get("http://localhost:3000/api/v1/zap")
+        axios.get("http://localhost:3000/api/v1/zap", {
+            headers: {
+                "Authorization": localStorage.getItem("token")
+            }
+        })
         .then(res => {
             setZaps(res.data.zaps)
         })
