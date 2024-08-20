@@ -7,7 +7,13 @@ import useAuth from "@/providers/AuthProvider";
 export default function AppBar() {
     const router = useRouter()
     const path = usePathname()
-    const {isAuthenticated} = useAuth();
+    let {isAuthenticated, setIsAuthenticated} = useAuth();
+    const handleLogout = () => {
+        localStorage.removeItem("token")
+        setIsAuthenticated(false);        
+        router.push("/");
+   
+    }
     return <div className="flex border-b justify-between p-4">
         <div className="flex justify-center flex-col font-bold text-2xl ">
             Zapier
@@ -24,14 +30,12 @@ export default function AppBar() {
             <NormalButton onClick={() => router.push("/signup")}>Sign up</NormalButton>
              </>
             )
-            }
-            {
+            }{
                 isAuthenticated && 
                 <>
                 <div>
-                    <LinkButton onClick={()=> {}}>Logout</LinkButton>
+                    <LinkButton onClick={handleLogout}>Logout</LinkButton>
                 </div>
-                
                 </>
             }
         </div>
