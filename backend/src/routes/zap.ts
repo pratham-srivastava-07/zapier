@@ -86,7 +86,7 @@ zapRouter.get("/", authMiddleware, async(req, res) => {
             }
         }
     })
-    console.log("Signin route");
+    // console.log("Signin route");
     return res.json({zaps})
 })
 
@@ -112,7 +112,7 @@ zapRouter.get("/:zap", authMiddleware, async(req, res) => {
             }
         }
     })
-    console.log("Signin route");
+    // console.log("Signin route");
     return res.json({zaps})
     
 })

@@ -55,6 +55,7 @@ function useZaps() {
 export default function Dashboard() {
 
     const {loading, zaps} = useZaps()
+    const router = useRouter()
 
     return <div>
         <div className="pt-8 flex justify-center">
@@ -63,11 +64,13 @@ export default function Dashboard() {
                 <div className="text-2xl font-bold">
                     My Zaps
                 </div>
-                <DarkButton onClick={()=> {}}>Create</DarkButton>
+                <DarkButton onClick={()=> {
+                    router.push("/zap/create");
+                }}>Create</DarkButton>
             </div>
         </div>
     </div>
-    {loading ? "Loading..." : <ZapsTable zaps={zaps}></ZapsTable>}
+    {loading ? "Loading..." :<div className="flex justify-center"> <ZapsTable zaps={zaps} /> </div>}
     </div>
 }
 
