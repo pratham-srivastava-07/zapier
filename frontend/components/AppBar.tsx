@@ -1,4 +1,5 @@
 'use client'
+
 import { usePathname, useRouter } from "next/navigation";
 import LinkButton from "./buttons/LinkButton";
 import NormalButton from "./buttons/NormalButton";
@@ -8,12 +9,13 @@ export default function AppBar() {
     const router = useRouter()
     const path = usePathname()
     let {isAuthenticated, setIsAuthenticated} = useAuth();
+
     const handleLogout = () => {
         localStorage.removeItem("token")
         setIsAuthenticated(false);        
         router.push("/");
-   
     }
+
     return <div className="flex border-b justify-between p-4">
         <div className="flex justify-center flex-col font-bold text-2xl ">
             Zapier
@@ -30,7 +32,7 @@ export default function AppBar() {
             <NormalButton onClick={() => router.push("/signup")}>Sign up</NormalButton>
              </>
             )
-            }{
+         } {
                 isAuthenticated && 
                 <>
                 <div>
