@@ -46,7 +46,7 @@ function useZaps() {
             setZaps(res.data.zaps)
             setLoading(false);
         })
-    })
+    }, [])
     return {
         loading, zaps
     }
