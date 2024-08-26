@@ -4,11 +4,14 @@ import { usePathname, useRouter } from "next/navigation";
 import LinkButton from "./buttons/LinkButton";
 import NormalButton from "./buttons/NormalButton";
 import useAuth from "@/providers/AuthProvider";
+import { useTheme } from "@/providers/ThemeProvider";
+import DarkButton from "./buttons/DarkButton";
 
 export default function AppBar() {
     const router = useRouter()
     const path = usePathname()
     let {isAuthenticated, setIsAuthenticated} = useAuth();
+    const {theme, toggleTheme}= useTheme();
 
     const handleLogout = () => {
         localStorage.removeItem("token")
@@ -40,6 +43,10 @@ export default function AppBar() {
                 </div>
                 </>
             }
+        <div>
+            <DarkButton onClick={toggleTheme}>{theme === 'light' ? '🌙' : '☀️'}</DarkButton>
         </div>
+        </div>
+        
     </div>
 }

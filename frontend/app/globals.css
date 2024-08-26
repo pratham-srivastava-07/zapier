@@ -4,4 +4,9 @@
 
 body {
     background-color: #fffdf9;
+    @apply bg-white text-black;
 }
+
+body.dark-mode {
+    @apply bg-gray-900 text-white;
+  }
