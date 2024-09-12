@@ -42,7 +42,7 @@ export default function AppBar() {
                     <LinkButton onClick={handleLogout}>Logout</LinkButton>
                 </div>
                 </>
-            }
+            } 
         <div>
             <DarkButton onClick={toggleTheme}>{theme === 'light' ? '🌙' : '☀️'}</DarkButton>
         </div>
